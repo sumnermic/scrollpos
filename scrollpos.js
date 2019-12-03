@@ -1,4 +1,4 @@
-jQuery(function ($) {
+jQuery(window).bind('load', function () {
 
     var scrollPos = function (loc, delay) {
 
@@ -11,13 +11,13 @@ jQuery(function ($) {
         this.scroll = function () {
 
             // apply scrollPos
-            if (+sessionStorage.getItem('giuliaScrollPos-' + loc) !== window.pageYOffset) {
+            if (+sessionStorage.getItem('giuliaScrollPos-' + loc)) {
 
-                let giuliaInfiniteScrollPos = +sessionStorage.getItem('giuliaScrollPos-' + loc);
+                var giuliaInfiniteScrollPos = +sessionStorage.getItem('giuliaScrollPos-' + loc);
 
                 setTimeout(function () {
 
-                    $(window).scrollTop(giuliaInfiniteScrollPos);
+                    jQuery(window).scrollTop(giuliaInfiniteScrollPos);
 
                 }, delay);
 
@@ -38,14 +38,14 @@ jQuery(function ($) {
 
     }
 
-    var scrolling = new scrollPos(location.pathname, 1000);
-
-    scrolling.scroll();
+    var scrolling = new scrollPos(location.pathname);
 
     window.onscroll = function () {
 
         scrolling.saveScroll();
 
     };
+
+    scrolling.scroll();
 
 });
